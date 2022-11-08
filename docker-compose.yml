@@ -1,25 +1,25 @@
 version: '3.7'
 
 services:
-  rudn:
+  meta:
     build:
       context: .
       dockerfile: docker/server/Dockerfile
     restart: 'always'
     env_file:
       - docker/postgres/env.env
-      - docker/env/.env
+      - .env
       - docker/env/.email.env
     depends_on:
       - db
       - redis
     ports:
-      - '8089:8000'
+      - '8005:8000'
     volumes:
-      - ./app/rudn:/app
+      - ./app/meta:/app
       - redis_socket:/redis_socket
     networks:
-      - rudn_network
+      - meta_network
 
   db:
     image: postgres:13.2-alpine
@@ -30,9 +30,9 @@ services:
     env_file:
       - docker/postgres/env.env
     ports:
-      - "6433:5432"
+      - "5435:5432"
     networks:
-      - rudn_network
+      - meta_network
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER" ]
       interval: 50s
@@ -49,9 +49,9 @@ services:
       - redis_data:/data
       - redis_socket:/redis_socket
     ports:
-      - "6381:6379"
+      - "6382:6379"
     networks:
-      - rudn_network
+      - meta_network
     healthcheck:
       test: [ "CMD", "redis-cli","ping" ]
       interval: 1m20s
@@ -64,21 +64,22 @@ services:
       dockerfile: docker/server/Dockerfile
     command: celery -A source worker -l info --beat --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
-      - ./app/source:/app
+      - ./app/meta:/app
       - redis_socket:/redis_socket
     env_file:
       - docker/postgres/env.env
-      - docker/env/.env
+      - .env
       - docker/env/.email.env
     depends_on:
+      - db
       - redis
     restart: unless-stopped
     networks:
-      - rudn_network
+      - meta_network
 
 
 networks:
-  rudn_network:
+  meta_network:
 
 volumes:
   postgres_data:

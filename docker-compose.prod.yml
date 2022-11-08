@@ -4,7 +4,7 @@ x-variables: &variables
   SWAGGER_URL: ''
 
 services:
-  rudn:
+  meta:
     build:
       context: .
       dockerfile: docker/server_prod/Dockerfile
@@ -24,7 +24,7 @@ services:
       - static_data:/app/static/
       - redis_socket:/redis_socket
     networks:
-      - rudn_network
+      - meta_network
 
   db:
     image: postgres:13.2-alpine
@@ -35,9 +35,9 @@ services:
     env_file:
       - docker/postgres/env.env
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
     networks:
-      - rudn_network
+      - meta_network
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER" ]
       interval: 50s
@@ -57,7 +57,7 @@ services:
       - redis_data:/data
       - redis_socket:/redis_socket
     networks:
-      - rudn_network
+      - meta_network
     healthcheck:
       test: [ "CMD", "redis-cli","ping" ]
       interval: 1m20s
@@ -68,11 +68,11 @@ services:
     image: nginx
     restart: 'always'
     networks:
-      - rudn_network
+      - meta_network
     depends_on:
-      - rudn
+      - meta
     ports:
-      - '8080:80'
+      - '${PORT}:80'
     volumes:
       - media_data:/app/media/
       - static_data:/app/static/
@@ -91,18 +91,18 @@ services:
     environment:
       <<: *variables
     env_file:
-      - docker/postgres/env.env
-      - docker/env/.env
+      - docker/postgres/.env.env
+      - .env
       - docker/env/.email.env
     depends_on:
       - redis
     restart: unless-stopped
     networks:
-      - rudn_network
+      - meta_network
 
 
 networks:
-  rudn_network:
+  meta_network:
 
 volumes:
   postgres_data:

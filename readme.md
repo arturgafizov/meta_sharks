@@ -7,7 +7,7 @@
 
 #### Before running create your superuser email/password and project name in docker/prod/env/.data.env file
 
-    docker-compose exec rudn python manage.py createsuperuser
+    docker-compose exec meta python manage.py createsuperuser
 
 #### Run the local develop server:
 
@@ -24,4 +24,4 @@
 ### My app is deployed to address:
 
 
-docker run -it -p 84:80 -e APP=test.com -e CERBOT_EMAIL=djangoblog.artur@gmail.com -d --name rudn-front --restart always rudn-front
+docker run -it -p 84:80 -e APP=test.com -e CERBOT_EMAIL=djangoblog.artur@gmail.com -d --name meta-front --restart always meta-front

@@ -2,7 +2,7 @@
 
 #### Clone the repo:
 
-    git clone git@bitbucket.org:webtronics-apps-web/backend.git 
+    git clone https://github.com/arturgafizov/meta_sharks.git 
     
 
 #### Before running create your superuser email/password and project name in docker/prod/env/.data.env file
@@ -22,6 +22,5 @@
 
   
 ### My app is deployed to address:
-
 
 docker run -it -p 84:80 -e APP=test.com -e CERBOT_EMAIL=djangoblog.artur@gmail.com -d --name meta-front --restart always meta-front

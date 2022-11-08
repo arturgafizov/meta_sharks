@@ -10,7 +10,6 @@ from . import serializers
 from .models import Direction, Subject
 from . import swagger_schemas as schemas
 from ..users.permissions import IsAdmin
-from ..users.services import AuthAppService
 
 
 @method_decorator(name='list', decorator=swagger_auto_schema(**schemas.direction_list, ))

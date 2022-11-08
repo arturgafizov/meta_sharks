@@ -22,11 +22,6 @@ class StudentGroupViewSet(ViewSet):
 
     def get_queryset(self):
         return StudentGroup.objects.prefetch_related('set_students').all()
-    # @method_decorator(name='retrieve', decorator=swagger_auto_schema(**schemas.student_group_retrieve, ))
-    # def retrieve(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     serializer = self.get_serializer(instance)
-    #     return Response(serializer.data)
 
     @method_decorator(name='create', decorator=swagger_auto_schema(**schemas.student_group_create, ))
     def create(self, request, **kwargs):

@@ -1,12 +1,7 @@
 from django.contrib import admin
 from django.conf import settings
-from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
-from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import get_user_model
-from rest_framework_simplejwt.token_blacklist.admin import OutstandingTokenAdmin
-from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 from .models import Student, User
 

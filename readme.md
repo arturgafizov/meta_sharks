@@ -13,7 +13,8 @@
 
     docker-compose up -d --build
     docker-compose logs -f
-    
+
+##### before deploying the application, specify the ports for PORT= DB_PORT= DB and the application     
 ##### Server will bind 8080 port. You can get access to server by browser [http://localhost:8080](http://localhost:8080)
 
 

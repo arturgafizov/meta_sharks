@@ -1,13 +1,8 @@
-from django.contrib.auth.decorators import login_required
 from django.urls import path
-from django.views.generic import RedirectView
-from . import views
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
+
+from . import views
 
 app_name = 'apps.users'
 

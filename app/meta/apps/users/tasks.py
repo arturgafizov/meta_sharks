@@ -1,13 +1,11 @@
 from os import environ
-from typing import Union, List
-from celery.result import AsyncResult
+from typing import Union
 from django.core.mail import EmailMultiAlternatives
 from django.template import loader
 from django.utils.translation import activate
 
 from .decorators import smtp_shell
 from source.celery import app
-
 from .excel import ExcelFileOperation
 from .services import UsersService
 from ..directions.models import Direction
@@ -67,6 +65,5 @@ def generate_excel_report():
         'groups_date': groups_date,
     }
     url_file = UsersService.get_file_url_and_file_root('export')
-
     service = ExcelFileOperation(url_file, titles, data)
     service.xcl_export()

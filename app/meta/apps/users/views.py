@@ -7,9 +7,9 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework.generics import ListAPIView, GenericAPIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
@@ -20,7 +20,6 @@ from .excel import ExcelFileOperation
 from .generators import get_tokens_for_user
 from . import swagger_schemas as schemas
 from .models import Student
-from .services import UsersService
 from .tasks import generate_excel_report
 from ..directions.models import Direction
 from .permissions import IsCurator
@@ -146,5 +145,3 @@ class GetExcelReportView(APIView):
             'status': excel_task.status,
         }
         return Response(data, status=status.HTTP_200_OK)
-
-

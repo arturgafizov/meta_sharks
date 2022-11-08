@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
-from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
+from rest_framework import serializers
 
 from .backends import EmailBackend
 from .services import AuthAppService, UsersService
@@ -109,4 +109,3 @@ class AddStudentInGroupView(serializers.Serializer):
         group = StudentGroup.objects.get(title=group_name)
         student.student_group.add(group)
         return group
-
